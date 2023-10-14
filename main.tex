@@ -19,6 +19,14 @@
 \usepackage{amscd}
 \usepackage{makeidx}
 \usepackage[dvips]{graphicx}
+\usepackage{booktabs,array,arydshln}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage{etoolbox}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{bibliografia.bib}
 
 \renewcommand{\baselinestretch}{1}
 \setcounter{page}{1}
@@ -28,7 +36,7 @@
 \setlength{\evensidemargin}{1cm}
 \pagestyle{myheadings}
 \thispagestyle{empty}
-\markboth{\small{Pr\'actica 1. Catonga Tecla Daniel Isaí 1, Olguin Castillo Victor Manuel 2.}}{\small{.}}
+\markboth{\small{Pr\'actica 3. Catonga Tecla Daniel Isaí 1, Olguin Castillo Victor Manuel 2.}}{\small{.}}
 \date{}
 \begin{document}
 
@@ -46,7 +54,7 @@
 
 \centerline{\bf Ingeniería en Inteligencia Artificial, An\'alisis y Diseño de Algoritmos}
 
-\centerline{\bf Sem: 2024-1, 3BV1, Pr\'actica 1, 14 de septimebre de 2023}
+\centerline{\bf Sem: 2024-1, 3BV1, Pr\'actica 3, 18 de octubre de 2023}
 
 \centerline{}
 
@@ -54,7 +62,7 @@
 
 
 \begin{center}
-\Large{\textsc{Pr\'actica 1: Determinaci\'on experimental de la complejidad temporal de un algoritmo}}
+\Large{\textsc{Pr\'actica 3: Funciones Recursivas vs Iterativas.}}
 \end{center}
 \centerline{}
 \centerline{\bf {Catonga Tecla Daniel Isaí 1, Olguin Castillo Victor Manuel 2.}}
@@ -81,66 +89,58 @@
 
 
 
-{\bf Palabras Clave:} 
+{\bf Palabras Clave:} Algoritmo, Big O, C++, Recursividad
 
 %----------------------------------------------- INTRODUCCIÓN
 \newpage
 \section{Introducci\'on}
-Un algoritmo es una serie de pasos o instrucciones que deben ser precisos, ordenados y finitos. La finalidad de un algoritmo es para resolver problemas como para optimizar procesos y es de suma importancia ya que los algoritmos ayudan a la resolución de problemas muy grandes o complejos de forma que el problema se descompone en problemas más pequeños haciendo referencia a "divide y vencerás", es importante mencionar que un algoritmo consta de 3 partes que es la entrada, proceso y salida con esto tenemos un orden para que sea claro y compresivo el algoritmo que se desarrolla y así poder mejorar este mismo si es necesario.
+Texto ejemplo \cite{fibo}. 
 \par
-Los algoritmos han sido esenciales hasta la actualidad para la resolución de problemas 
-matemáticos y científicos por lo que los algoritmos son fundamentales en varias áreas de las ciencias o ingeniería por lo antes mencionado. 
-\medskip
-
-El análisis de algoritmos es el estudio del diseño de estos, en complejidad temporal (número de operaciones o pasos ejecutados) y complejidad espacial (recurso de memoria que utiliza). Esto es de suma importancia debido a que en cuestión de complejidad temporal algunos algoritmos pueden requerir años en resolver un solo problema, esto no es para nada eficiente en la práctica por lo tanto es importante conocer la complejidad temporal de un algoritmo antes de aplicarlo en la vida real. Por otra parte, sabemos que una maquina no cuenta con recursos infinitos de memoria o espacio de almacenamiento, por lo tanto, el algoritmo diseñado puede consumir más memoria de la que el equipo dispone causando problemas por lo que se tiene que evaluar su complejidad espacial para evitar este tipo de problemas y no causar daños al equipo. 
-
-Por lo tanto, el análisis de algoritmos es importante ya que con esto se puede evaluar el comportamiento de un algoritmo en específico y así ver si es eficiente o no, con esto podemos reducir costos, optimizar recursos, reducir los cuellos de botella, etc. 
-\medskip
-
-Y todo esto nos lleva a evaluar la complejidad temporal de los algoritmos de la práctica para ver su comportamiento que tienen haciendo uso de gráficas para ver el mejor de los casos, peor de los casos y casos promedios, observando la eficiencia que tienen los algoritmos llegando a una conclusión con respecto a lo llevado a cabo.
 
 \newpage
 
 
+\newpage
 \section{Conceptos Basicos}
 
 \begin{itemize}
-\item \textbf{Algoritmo}. Un algoritmo es una secuencia de pasos lógicos que son precisos, ordenados y finitos que se ocupan para resolver un problema deseado.
+\item \textbf{Algoritmo}. Un algoritmo es una secuencia de pasos lógicos que son precisos, ordenados y finitos que se ocupan para resolver un problema deseado\cite{concep1}.
 
 \item \textbf{Análisis de  algoritmos}
-Es un proceso de evaluación donde conoceremos el rendimiento y la eficiencia de un algoritmo. Se evaluará el consumo de tiempo y de recursos computacionales que requiere el algoritmo para ser ejecutado con diversos datos de entrada, y esto determinará su complejidad.
+Es un proceso de evaluación donde conoceremos el rendimiento y la eficiencia de un algoritmo. Se evaluará el consumo de tiempo y de recursos computacionales que requiere el algoritmo para ser ejecutado con diversos datos de entrada, y esto determinará su complejidad\cite{concep1}.
 
 \item \textbf{Cota superior asintótica}. Es una función que delimita por la parte superior a otra función a medida que la entrada de la función delimitada crece.
 
 \item \textbf{Cota inferior asintótica}. Es una función que delimita por la parte inferior a otra función a medida que la entrada de la función delimitada crece.
 
-\item \textbf{Notacion O}. Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota superior asintótica en el peor caso de ejecución de un algoritmo.
+\item \textbf{Notacion O}. Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota superior asintótica en el peor caso de ejecución de un algoritmo\cite{concep1}.
 \\
-\[O(g(n)) = \left\{ f : \mathbb{N} \rightarrow \mathbb{R}^+ \ \middle| \ \exists \ c \text{ constante positiva y } n_0 \notin \mathbb{N} : f(n) \leq cg(n), \ \forall \ n \geq n_0 \right\}\]
+\[O(g(n)) = \{ f : \mathbb{N} \rightarrow \mathbb{R}^+ \ | \ \exists \ c \text{ constante positiva y } n_0 \notin \mathbb{N} :\] 
+\[f(n) \leq cg(n), \ \forall \ n \geq n_0 \}\]
 
-
-\item \textbf{Notacion Tetha "$\Theta$"} Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota superior y una cota inferior, esto nos da una idea más precisa del comportamiento y complejidad del mismo.
+\item \textbf{Notacion Tetha "$\Theta$"} Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota superior y una cota inferior, esto nos da una idea más precisa del comportamiento y complejidad del mismo\cite{concep1}.
 \\
 \[\Theta(g(n) = \{f : \mathbb{N} \rightarrow \mathbb{R}^+ \,|\, \exists \, c_1, c_2 \text{ constantes positivas}, n_0 \,: \]
 \[0 < c_1g(n) \leq f(n) \leq c_2g(n), \forall \, n \geq n_0\}\]
 
-\item \textbf{Notacion Omega "$\Omega$"}  Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota inferior asintótica en el peor caso de ejecución de un algoritmo.
+\item \textbf{Notacion Omega "$\Omega$"}  Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota inferior asintótica en el peor caso de ejecución de un algoritmo\cite{concep1}.
 \\
-\[\Omega(g(n)) = \{f : \mathbb{N} \rightarrow \mathbb{R}^+ \,|\, \exists \, c \text{ constante positiva y } n_0 \,:\, 0 < cg(n) \leq f(n), \forall \, n \geq n_0\}\]
+\[\Omega(g(n)) = \{f : \mathbb{N} \rightarrow \mathbb{R}^+ \,|\, \exists \, c \text{ constante positiva y } n_0 \,:\]
+\[0 < cg(n) \leq f(n), \forall \, n \geq n_0\}\]
 
 
-\item \textbf{Analisis a posteriori}. Es una evaluación que se realiza de forma empírica, donde los resultados se obtienen con la ejecución del algoritmo y la medición del tiempo y recursos computacionales que requiere.
+\item \textbf{Analisis a posteriori}. Es una evaluación que se realiza de forma empírica, donde los resultados se obtienen con la ejecución del algoritmo y la medición del tiempo y recursos computacionales que requiere\cite{concep1}.
 
-\item \textbf{Analisis a priori}. Es una evaluacion que se realiza de forma teorica, donde los resultados se pueden obtener con el conteo de operaciones multiplicado por el costo computación del proceso y/o analisis matematico que en base a sus formulas se obtiene su complegidad algoritmica.
+\item \textbf{Analisis a priori}. Es una evaluacion que se realiza de forma teorica, donde los resultados se pueden obtener con el conteo de operaciones y/o analisis matematico que en base a sus formulas se obtiene su complegidad algoritmica\cite{concep1}.
 
 
-\item \textbf{Sucesion de Fibonacci}. Es una secuencia matematica infinita que incia con los numeros 0 y 1, y el numero siguiente sera la suma de los dos numeros anteriores a este.\\
+\item \textbf{Sucesion de Fibonacci}. Es una secuencia matematica infinita que incia con los numeros 0 y 1, y el numero siguiente sera la suma de los dos numeros anteriores a este\cite{fibo}.\\
 
 \centerline{El tercer número es 0 + 1 = 1.}
 \centerline{El cuarto número es 1 + 1 = 2.}
 \centerline{El quinto número es 1 + 2 = 3.}
 
-\item \textbf{Numero perfecto}.Se le considera numero perfecto a aquel que la suma de sus divisores propios positivos da por por resultado el mismo numero.\\
+\item \textbf{Numero perfecto}.Se le considera numero perfecto a aquel que la suma de sus divisores propios positivos da por por resultado el mismo numero\cite{key}.\\
 
 \centerline{Los divisores positivos de 28 son 1, 2, 4, 7 y 14.}
 \centerline{Si sumamos estos divisores: 1 + 2 + 4 + 7 + 14 = 28.}
@@ -168,47 +168,91 @@ Es un proceso de evaluación donde conoceremos el rendimiento y la eficiencia de
                     return resultado
 \end{verbatim}
 \end{centering}
-
 \newpage
 
-
-
-\item \textbf{Pseudocodigo ejericicio 1}\\
+\item \textbf{Pseudocodigo Sucesion de Fibonacci version iterativa}\\
 
 \begin{centering}
 \begin{verbatim}
+fibonacci_iterativa(num_anterior, num_actual, n)
+for i = 0 to n do
+    print num_actual
+    aux = num_actual;
+    num_actual += num_anterior;
+    num_anterior = aux;
+
 
 \end{verbatim}
 \end{centering}
 
-\item \textbf{Pseudocodigo ejericicio 1}\\
+\item \textbf{Pseudocodigo Sucesion de Fibonacci version recursiva}
 
 \begin{centering}
 \begin{verbatim}
+fibonacci_recursiva(num_anterior, num_actual, n)
+    if n == 0
+        return
+    else
+        print num_actual
+        fibonacci_recursiva(num_actual, num_actual + num_anterior, n-1); 
 
 \end{verbatim}
 \end{centering}
+
+\item \textbf{Pseudocódigo Perfecto}.
+El algoritmo de Perfecto dice si el número n es perfecto o no, haciendo la suma de sus divisores con un for, retorna un 0 si el número no es perfecto y retorna un 1 si es perfecto.
+\begin{center}
+\begin{verbatim}
+                    Perfecto(n):
+                    contador = 0
+                    for i = 1 to i = n-1 do
+                      if n%i == 0
+                        contador = contador + i
+                    if contador == n
+                      retorna 1
+                    retorna 0
+\end{verbatim}
+\end{center}
+\newpage
+\item \textbf{Pseudocódigo MostrarPerfectos}.
+El algoritmo de MostrarPerfectos, muestra n números perfectos, para cuando $n=2$ muestra dos números perfectos tal que el output es: [$6,28$]. Utiliza la función Perfecto para calcular los números perfectos.
+\begin{center}
+\begin{verbatim}
+                    MostrarPerfectos(n):
+                    contador = 0
+                    for i = 1 to contador != n do
+                      if Perfecto(i) do
+                        imprime i
+                        contador = contador + i 
+\end{verbatim}
+\end{center}
 
 \end{itemize}
-
+\newpage
+%------------------------------------------- EXPERIMENTACIÓN Y RESULTADOS
 \section{Experimentación y Resultados}
 
+\newpage
 \section{Conclusiones}
 
-
+Texto ejemplo, conclusión general.
 \medskip
-
-Equipo
 
 Conclusiones Catonga Tecla Daniel Isaí 1
+\par
+Texto ejemplo.
 
-Conclusiones Alumno 2: [Olguin Castillo Victor Manuel 2]\\
+\medskip
 
+Conclusiones Olguin Castillo Victor Manuel 2
+\par
+Texto ejemplo.
 
+\newpage
 \section{Bibliograf\'ia}
 
-Lee, R. C. T. (2014). Introducción al diseño y análisis de algoritmos: un enfoque estratégico. Mc Graw Hill.
-\medskip
+Ejemplo de referencias.
+\printbibliography[title={ }]
 
 
 
