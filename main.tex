@@ -8,9 +8,11 @@
 \usepackage{amsthm}
 \usepackage{algpseudocode}
 \usepackage{algorithm}
-\usepackage{listings}
+\usepackage[spanish]{babel}
+
 \usepackage{fancyhdr}
 \usepackage{graphics}
+\usepackage{listings}
 %----------------------------------------------------------------------------------------------
 \usepackage{amsmath, amssymb}
 \usepackage{amsmath}
@@ -94,8 +96,30 @@
 %----------------------------------------------- INTRODUCCIÓN
 \newpage
 \section{Introducci\'on}
-Texto ejemplo \cite{fibo}. 
-\par
+
+Un algoritmo es un conjunto ordenado y finito de operaciones que permite hallar la solución de un problema \cite{algoritmo}. 
+Los algoritmos son de suma importancia, estos ayudan a la resolución de problemas muy grandes o complejos como problemas matemáticos y científicos, por lo tanto, los 
+algoritmos son fundamentales en varias áreas de las ciencias o ingeniería.
+
+\par 
+En programación, las operaciones pueden ser manejadas por recursividad o iteraciones. 
+Recursividad es una función que se llama a sí misma, directa o indirectamente. Una de las estructuras fundamentales de programación son los bucles, 
+las cuales forman parte de las estructuras de la mayoría de los lenguajes, los bucles sirven para los algoritmos iterativos. \cite{recuranditet}
+
+\medskip
+
+El análisis de algoritmos es otro parte fundamental por lo que los algoritmos tienen que ser los más eficientes posibles en complejidad temporal y complejidad espacial. 
+En cuestión de complejidad temporal algunos algoritmos 
+pueden requerir años en resolver un solo problema, por lo que, no es suficiente para la práctica.
+, y se opta por otros algoritmos que resuelvan el problema que presenten de una forma más eficaz. Por otra parte, una maquina no cuenta con recursos infinitos de memoria o espacio de almacenamiento, por lo que, existen 
+algoritmos que ocupan mucho espacio de memoria y esto puede ocasionar problemas para equipos que no cuentan con el espacio suficiente, entonces se tiene que analizar también lo que es la complejidad espacial para tratar de ocupar 
+la menor cantidad de memoria posible. Ambas complejidades son importantes, pero es más importante la complejidad 
+temporal ya que las empresas pueden comprar más memorias de almacenamiento, pero no pueden comprar tiempo, por lo que algunas empresas optan sacrificar complejidad espacial por una complejidad temporal más eficiente.
+
+\medskip
+
+Algunos algoritmos iterativos se pueden hacer de forma recursiva y viceversa, lo importante es conocer cuál es más eficaz con respecto a la otra implementación, por lo que, es importante conocer la complejidad de cada algoritmo en 
+la forma recursiva o iterativa y compararlas para saber que algoritmos implementar en un caso práctico. 
 
 \newpage
 
@@ -104,46 +128,34 @@ Texto ejemplo \cite{fibo}.
 \section{Conceptos Basicos}
 
 \begin{itemize}
-\item \textbf{Algoritmo}. Un algoritmo es una secuencia de pasos lógicos que son precisos, ordenados y finitos que se ocupan para resolver un problema deseado\cite{concep1}.
+\item \textbf{Algoritmo}. Un algoritmo es una secuencia de pasos lógicos que son precisos, ordenados y finitos que se ocupan para resolver un problema deseado \cite{concep1}.
 
 \item \textbf{Análisis de  algoritmos}
-Es un proceso de evaluación donde conoceremos el rendimiento y la eficiencia de un algoritmo. Se evaluará el consumo de tiempo y de recursos computacionales que requiere el algoritmo para ser ejecutado con diversos datos de entrada, y esto determinará su complejidad\cite{concep1}.
+Es un proceso de evaluación donde conoceremos el rendimiento y la eficiencia de un algoritmo. Se evaluará el consumo de tiempo y de recursos computacionales que requiere el algoritmo para ser ejecutado con diversos datos de entrada, y esto determinará su complejidad \cite{concep1}.
 
 \item \textbf{Cota superior asintótica}. Es una función que delimita por la parte superior a otra función a medida que la entrada de la función delimitada crece.
 
 \item \textbf{Cota inferior asintótica}. Es una función que delimita por la parte inferior a otra función a medida que la entrada de la función delimitada crece.
 
-\item \textbf{Notacion O}. Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota superior asintótica en el peor caso de ejecución de un algoritmo\cite{concep1}.
+\item \textbf{Notacion O}. Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota superior asintótica en el peor caso de ejecución de un algoritmo \cite{concep1}.
 \\
 \[O(g(n)) = \{ f : \mathbb{N} \rightarrow \mathbb{R}^+ \ | \ \exists \ c \text{ constante positiva y } n_0 \notin \mathbb{N} :\] 
 \[f(n) \leq cg(n), \ \forall \ n \geq n_0 \}\]
 
-\item \textbf{Notacion Tetha "$\Theta$"} Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota superior y una cota inferior, esto nos da una idea más precisa del comportamiento y complejidad del mismo\cite{concep1}.
+\item \textbf{Notacion Tetha "$\Theta$"} Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota superior y una cota inferior, esto nos da una idea más precisa del comportamiento y complejidad del mismo \cite{concep1}.
 \\
 \[\Theta(g(n) = \{f : \mathbb{N} \rightarrow \mathbb{R}^+ \,|\, \exists \, c_1, c_2 \text{ constantes positivas}, n_0 \,: \]
 \[0 < c_1g(n) \leq f(n) \leq c_2g(n), \forall \, n \geq n_0\}\]
 
-\item \textbf{Notacion Omega "$\Omega$"}  Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota inferior asintótica en el peor caso de ejecución de un algoritmo\cite{concep1}.
+\item \textbf{Notacion Omega "$\Omega$"}  Esta notación se ocupa para describir la complejidad de un algoritmo definiendo una cota inferior asintótica en el peor caso de ejecución de un algoritmo \cite{concep1}.
 \\
 \[\Omega(g(n)) = \{f : \mathbb{N} \rightarrow \mathbb{R}^+ \,|\, \exists \, c \text{ constante positiva y } n_0 \,:\]
 \[0 < cg(n) \leq f(n), \forall \, n \geq n_0\}\]
 
 
-\item \textbf{Analisis a posteriori}. Es una evaluación que se realiza de forma empírica, donde los resultados se obtienen con la ejecución del algoritmo y la medición del tiempo y recursos computacionales que requiere\cite{concep1}.
+\item \textbf{Analisis a posteriori}. Es una evaluación que se realiza de forma empírica, donde los resultados se obtienen con la ejecución del algoritmo y la medición del tiempo y recursos computacionales que requiere \cite{concep1}.
 
-\item \textbf{Analisis a priori}. Es una evaluacion que se realiza de forma teorica, donde los resultados se pueden obtener con el conteo de operaciones y/o analisis matematico que en base a sus formulas se obtiene su complegidad algoritmica\cite{concep1}.
-
-
-\item \textbf{Sucesion de Fibonacci}. Es una secuencia matematica infinita que incia con los numeros 0 y 1, y el numero siguiente sera la suma de los dos numeros anteriores a este\cite{fibo}.\\
-
-\centerline{El tercer número es 0 + 1 = 1.}
-\centerline{El cuarto número es 1 + 1 = 2.}
-\centerline{El quinto número es 1 + 2 = 3.}
-
-\item \textbf{Numero perfecto}.Se le considera numero perfecto a aquel que la suma de sus divisores propios positivos da por por resultado el mismo numero\cite{key}.\\
-
-\centerline{Los divisores positivos de 28 son 1, 2, 4, 7 y 14.}
-\centerline{Si sumamos estos divisores: 1 + 2 + 4 + 7 + 14 = 28.}
+\item \textbf{Analisis a priori}. Es una evaluacion que se realiza de forma teorica, donde los resultados se pueden obtener con el conteo de operaciones y/o analisis matematico que en base a sus formulas se obtiene su complegidad algoritmica \cite{concep1}.
 
 \item \textbf{Funciones recursivas}. En la programacion las funciones recursivas son aquellas que durante su proceso se invocan asi mismas.
 
@@ -168,62 +180,55 @@ Es un proceso de evaluación donde conoceremos el rendimiento y la eficiencia de
                     return resultado
 \end{verbatim}
 \end{centering}
-\newpage
 
-\item \textbf{Pseudocodigo Sucesion de Fibonacci version iterativa}\\
-
-\begin{centering}
-\begin{verbatim}
-fibonacci_iterativa(num_anterior, num_actual, n)
-for i = 0 to n do
-    print num_actual
-    aux = num_actual;
-    num_actual += num_anterior;
-    num_anterior = aux;
-
-
-\end{verbatim}
-\end{centering}
-
-\item \textbf{Pseudocodigo Sucesion de Fibonacci version recursiva}
-
-\begin{centering}
-\begin{verbatim}
-fibonacci_recursiva(num_anterior, num_actual, n)
-    if n == 0
-        return
-    else
-        print num_actual
-        fibonacci_recursiva(num_actual, num_actual + num_anterior, n-1); 
-
-\end{verbatim}
-\end{centering}
-
-\item \textbf{Pseudocódigo Perfecto}.
-El algoritmo de Perfecto dice si el número n es perfecto o no, haciendo la suma de sus divisores con un for, retorna un 0 si el número no es perfecto y retorna un 1 si es perfecto.
+\item \textbf{Pseudocódigo de Bpusqueda iterativo}.
+El algoritmo de búsqueda, retorna el índice del valor que se busca dividiendo el arreglo en 3 partes por cada operación
+que se realiza hasta encontrar el valor o en caso contrario retorna -1 si no existe el valor en el arreglo.
 \begin{center}
 \begin{verbatim}
-                    Perfecto(n):
-                    contador = 0
-                    for i = 1 to i = n-1 do
-                      if n%i == 0
-                        contador = contador + i
-                    if contador == n
-                      retorna 1
-                    retorna 0
+            BusquedaIterativa(Arr[1,2,...,n],valor):
+            low = 0
+            high = longitud del vector - 1
+            i entero 
+            j entro
+            while low <= high do:
+              i = low + (high-low)/3
+              j = low + 2*(high-low)/3
+              if Arr[j]<valor do:
+                low = j+1
+              else if Arr[i]>valor do:
+                high = i-1
+              else if Arr[i]<valor and Arr[j]>valor do:
+                low = i+1
+                high = j-1
+              else if Arr[i] == valor do:
+                return i
+              else if Arr[j] == valor do:
+                return j
+            return -1
 \end{verbatim}
 \end{center}
-\newpage
-\item \textbf{Pseudocódigo MostrarPerfectos}.
-El algoritmo de MostrarPerfectos, muestra n números perfectos, para cuando $n=2$ muestra dos números perfectos tal que el output es: [$6,28$]. Utiliza la función Perfecto para calcular los números perfectos.
+\item \textbf{Pseudocódigo de Búsqueda recursiva}.
+El algoritmo de búsqueda recursivo se llama así msimo varias veces, retorna el índice del valor que se busca dividiendo el arreglo en 3 partes por cada operación
+que se realiza hasta encontrar el valor o en caso contrario retorna -1 si no existe el valor en el arreglo.
 \begin{center}
 \begin{verbatim}
-                    MostrarPerfectos(n):
-                    contador = 0
-                    for i = 1 to contador != n do
-                      if Perfecto(i) do
-                        imprime i
-                        contador = contador + i 
+      BusquedaRecursiva(Arr[1,2,...,n],low,high,valor):
+      if low <= high do:
+        i = low + (high-low)/3
+        j = low + 2*(high-low)/3
+         
+        if Arr[j]<valor do:
+          return BusquedaRecursiva(Arr,j+1,high,valor)
+        else if Arr[i]>valor do:
+          return BusquedaRecursiva(Arr,low,i-1,valor)
+        else if Arr[i]<valor and Arr[j]>valor do:
+          return BusquedaRecursiva(Arr,j+1,i-1,valor)
+        else if Arr[i] == valor do:
+          return i
+        else if Arr[j] == valor do:
+          retur
+      return -1
 \end{verbatim}
 \end{center}
 
@@ -251,7 +256,6 @@ Texto ejemplo.
 \newpage
 \section{Bibliograf\'ia}
 
-Ejemplo de referencias.
 \printbibliography[title={ }]
 
 
