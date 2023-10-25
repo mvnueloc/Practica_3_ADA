@@ -9,6 +9,7 @@
 \usepackage{algpseudocode}
 \usepackage{algorithm}
 \usepackage[spanish]{babel}
+\usepackage[usenames]{color}
 
 \usepackage{fancyhdr}
 \usepackage{graphics}
@@ -118,8 +119,8 @@ temporal ya que las empresas pueden comprar más memorias de almacenamiento, per
 
 \medskip
 
-Algunos algoritmos iterativos se pueden hacer de forma recursiva y viceversa, lo importante es conocer cuál es más eficaz con respecto a la otra implementación, por lo que, es importante conocer la complejidad de cada algoritmo en 
-la forma recursiva o iterativa y compararlas para saber que algoritmos implementar en un caso práctico. 
+Algunos algoritmos iterativos se pueden hacer de forma recursiva y viceversa, lo importante es conocer cuál es de menor complejidad de tiempo, por lo que, es importante conocer la complejidad de cada algoritmo en 
+la forma recursiva o iterativa y compararlas para saber que algoritmo implementar en un caso práctico. 
 
 \newpage
 
@@ -179,9 +180,9 @@ Es un proceso de evaluación donde conoceremos el rendimiento y la eficiencia de
                         resultado += i
                     return resultado
 \end{verbatim}
-\end{centering}
+\end{centering} 
 
-\item \textbf{Pseudocódigo de Bpusqueda iterativo}.
+\item \textbf{Pseudocódigo de Búsqueda iterativo}.
 El algoritmo de búsqueda, retorna el índice del valor que se busca dividiendo el arreglo en 3 partes por cada operación
 que se realiza hasta encontrar el valor o en caso contrario retorna -1 si no existe el valor en el arreglo.
 \begin{center}
@@ -228,7 +229,8 @@ que se realiza hasta encontrar el valor o en caso contrario retorna -1 si no exi
           return i
         else if Arr[j] == valor do:
           retur
-      return -1
+      else:
+        return -1
 \end{verbatim}
 \end{center}
 
@@ -236,16 +238,339 @@ que se realiza hasta encontrar el valor o en caso contrario retorna -1 si no exi
 \newpage
 %------------------------------------------- EXPERIMENTACIÓN Y RESULTADOS
 \section{Experimentación y Resultados}
+\textbf{2. Algoritmo de Búsqueda}
+\par
+
+%---------------------------------------------- Algoritmo Iterativo Busqueda Ternaria
+\textbf{Análisis a priori de algoritmo de Búsqueda Iterativo.} 
+El análisis a priori del algoritmo de búsqueda iterativa se basa con el pseudocódigo del algoritmo que se muestra a continuación, titulado "BusquedaIterativa". 
+
+\medskip
+\begin{center}
+  Pseudocódigo de Busqueda iterativa
+  \begin{verbatim}
+            BusquedaIterativa(Arr[1,2,...,n],valor):
+            01.  low = 0
+            02.  high = longitud del vector - 1
+            03.  i entero 
+            04.  j entro
+            05.  while low <= high do:
+            06.   i = low + (high-low)/3
+            07.   j = low + 2*(high-low)/3
+            08.   if Arr[j]<valor do:
+            09.     low = j+1
+            10.   else if Arr[i]>valor do:
+            11.    high = i-1
+            12.   else if Arr[i]<valor and Arr[j]>valor do:
+            13.    low = i+1
+            14.    high = j-1
+            15.   else if Arr[i] == valor do:
+            16.    return i
+            17.   else if Arr[j] == valor do:
+            18.    return j
+            19.  return -1
+  \end{verbatim}
+  \end{center}
+\newpage
+El algoritmo posee una ecuación de recurrencia, la cual se expresa como $T(n) = T(\frac{n}{3})+C$. Esta ecuación se deriva del cálculo de la complejidad por bloques de la figura n.
+  \begin{figure}[h]
+    \begin{center}
+      \includegraphics[width=0.85\linewidth]{images/apriori1.png}
+      \\
+      Figura n. Ecuación de Recurrencia.
+    \end{center}
+  \end{figure}
+
+  Por lo tanto la solución de la ecuación de recurrencia se obtiene por sustitución hacía atrás. 
+  
+  Solución:
+
+
+  $T(n)=T(\frac{n}{3})+C$
+
+  Sea $n=3^k\ (k=log_3 n)$
+  
+  $\Rightarrow T(3^k)=T(3^{k-1})+C$
+  \par
+Resolviendo mediante sustitución hacía atrás se tiene:
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =[T(3^{k-2})+C]+C$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =T(3^{k-2})+2C$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =[T(3^{k-3})+C]+2C$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =(3^{k-3})+3C$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ \ \vdots$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =T(3^{k-i})+iC$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ \ \vdots \ \ \ \ \ \ \ \  \ \ \ \ k-i=0\ \Rightarrow \ k=i$
+  
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =T(1)+kC$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =C+kC$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =C+log_3(n)C$
+
+\par
+
+  El algoritmo tiene complejidad:
+\begin{center}
+  $\therefore T(n)\in O(log_3n)$ 
+\end{center}
+  
+
+\newpage
+\textbf{Análisis a posteriori del algoritmo de búsqueda iterativa.}
+El algoritmo en ejecución se muestra en la figura 5, y el número de pasos se muestra en la tabla 6. Los datos muestran un aumento logarítmico base 3 en la complejidad a medida que $n$ crece. Para la tabla de datos, considera que, para el peor caso, el valor que se busca no se encuentra en el vector o arreglo.
+\par
+
+\begin{minipage}{.45\linewidth}
+  \centering
+  \includegraphics[width=1\linewidth]{images/busquedaiterativa.png}
+  \\
+  Figura 5. Ejecución de algoritmo de búsqueda iterativa.
+\end{minipage}\hfill
+\begin{minipage}{.45\linewidth}
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Valor de $n$} & \textbf{\# de pasos} \\
+    \hline
+    2  & 14 \\
+    3  & 14 \\
+    4  & 14 \\
+    5  & 18 \\
+    6  & 18 \\
+    7  & 18 \\
+    8  & 18 \\
+    9  & 18 \\
+    10 & 18 \\
+    11 & 18 \\
+    12 & 18 \\
+    13 & 18 \\
+    14 & 22 \\
+    15 & 22 \\
+    \vdots & \vdots\\
+    \hline
+  \end{tabular}
+  \\
+  Tabla 6. Datos de algoritmo de búsqueda iterativa.
+\end{minipage}
+
+\medskip
+
+Los datos de ejecución del algoritmo de búsqueda iterativa se muestran en la figura 6. El algoritmo muestra un
+crecimiento logaritmico base 3.
+
+\medskip
+
+\begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/busquedaiterativaworscase.png}
+  \\
+  Figura 6. Gráfica del comportamiento del algoritmo de búsqueda iterativa.
+\end{minipage}
+\newpage
+
+En la figura 7 se muestra la función tal que $g(n)=7.5log_3(n)$ acota por arriba al algoritmo. El ajuste asíntotico es para cuando $n_0\geq 120$. En la figura 8 se muestra que $f(n)$ esta delimitado por $g(n)$ cuando $n\geq n_0$.
+\medskip
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\linewidth]{images/busquedaiterativaworscasegn.png}
+    \\
+    Figura 7. Gráfica con acotación para $f(n)$.
+  \end{center}
+\end{figure}
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\linewidth]{images/busquedaiterativaworscasegnacotado.png}
+    \\
+    Figura 8. Gráfica para valor $n_0$.
+  \end{center}
+\end{figure}
+
+\medskip
+Por lo tanto, en el análisis a posteriori se muestra que el algoritmo es:
+\begin{center}
+  $\therefore T(n)\in O(log_3n)$
+\end{center}
+
+\newpage
+
+%------------------------------- ALGORITMO DE BÚSQUEDA RECURSIVA.
+
+\textbf{Análisis a priori de algoritmo de Búsqueda Recursivo.} 
+El análisis a priori del algoritmo de búsqueda recursivo se basa con el pseudocódigo del algoritmo que se muestra a continuación, titulado "BusquedaRecursiva". 
+\par
+\begin{center}
+  \begin{verbatim}
+        BusquedaRecursiva(Arr[1,2,...,n],low,high,valor):
+        01.  if low <= high do:
+        02.  i = low + (high-low)/3
+        03.  j = low + 2*(high-low)/3
+        04.  if Arr[j]<valor do:
+        05.    return BusquedaRecursiva(Arr,j+1,high,valor)
+        06.  else if Arr[i]>valor do:
+        07.    return BusquedaRecursiva(Arr,low,i-1,valor)
+        08.  else if Arr[i]<valor and Arr[j]>valor do:
+        09.    return BusquedaRecursiva(Arr,j+1,i-1,valor)
+        10.  else if Arr[i] == valor do:
+        11.    return i
+        12.  else if Arr[j] == valor do:
+        13.    return j
+        14.  return -1
+  \end{verbatim}
+  \end{center}
+\par
+
+El algoritmo posee una ecuación de recurrencia, la cual se expresa como $T(n)=T(\frac{n}{3}+C)$. Esta ecuación se deriva a  partir del cálculo de la complejidad por bloques de la figura n.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.85\linewidth]{images/apriori2.png}
+    \\
+    Figura n. Ecuación de Recurrencia.
+  \end{center}
+\end{figure}
+
+\newpage
+Por lo tanto, la solución de la ecuación de recurrencia se obtiene por sustitución hacía atrás. 
+  
+Solución:
+
+
+  $T(n)=T(\frac{n}{3})+C$
+
+  Sea $n=3^k\ (k=log_3 n)$
+  
+  $\Rightarrow T(3^k)=T(3^{k-1})+C$
+  \par
+  Resolviendo mediante sustitución hacía atrás se tiene:
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =[T(3^{k-2})+C]+C$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =T(3^{k-2})+2C$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =[T(3^{k-3})+C]+2C$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =(3^{k-3})+3C$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ \ \vdots$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =T(3^{k-i})+iC$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ \ \vdots \ \ \ \ \ \ \ \  \ \ \ \ k-i=0\ \Rightarrow \ k=i$
+  
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =T(1)+kC$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =C+kC$
+
+  $\ \ \ \ \ \ \ \ \ \ \ \ =C+log_3(n)C$
+
+  \medskip
+
+  El algoritmo tiene complejidad:
+\begin{center}
+  $\therefore T(n)\in O(log_3n)$ 
+\end{center}
+
+
+\newpage
+\textbf{Análisis a posteriori del algoritmo de búsqueda Recursivo.}
+El algoritmo en ejecución se muestra en la figura 5, y el número de pasos se muestra en la tabla 6. Los datos muestran un aumento logarítmico base 3 en la complejidad a medida que $n$ crece. Para la tabla de datos, considera que, para el peor caso, el valor que se busca no se encuentra en el vector o arreglo.
+\par
+
+\begin{minipage}{.45\linewidth}
+  \centering
+  \includegraphics[width=1\linewidth]{images/busquedarecursiva.png}
+  \\
+  Figura 5. Ejecución algoritmo de búsqueda recursiva.
+\end{minipage}\hfill
+\begin{minipage}{.45\linewidth}
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Valor de $n$} & \textbf{\# de pasos} \\
+    \hline
+    2  & 13 \\
+    3  & 13 \\
+    4  & 13 \\
+    5  & 18 \\
+    6  & 18 \\
+    7  & 18 \\
+    8  & 18 \\
+    9  & 18 \\
+    10 & 18 \\
+    11 & 18 \\
+    12 & 18 \\
+    13 & 18 \\
+    14 & 23 \\
+    15 & 23 \\
+    \vdots & \vdots\\
+    \hline
+  \end{tabular}
+  \\
+  Tabla 6. Datos de algoritmo de búsqueda recursiva.
+\end{minipage}
+
+\medskip
+
+Los datos de ejecución del algoritmo de búsqueda iterativa se muestran en la figura k. El algoritmo muestra un
+crecimiento logaritmico base 3.
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\linewidth]{images/busquedarecursivaworstcase.png}
+    \\
+    Figura k. Gráfica del comportamiento del algoritmo de búsqueda recursiva.
+  \end{center}
+\end{figure}
+\newpage
+En la figura 7 se muestra la función tal que $g(n)=8log_3(n)$ acota por arriba al algoritmo. El ajuste asíntotico es para cuando $n_0\geq 120$. En la figura 8 se muestra que $f(n)$ esta delimitado por $g(n)$ cuando $n\geq n_0$.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\linewidth]{images/busquedarecursivaworstcasegn.png}
+    \\
+    Figura 7. Gráfica con acotación para $f(n)$.
+  \end{center}
+\end{figure}
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{images/busquedarecursivaworstcasegncota.png}
+    \\
+    Figura 8. Gráfica para valor $n_0$.
+  \end{center}
+\end{figure}
+
+
+Por lo tanto, en el análisis a posteriori se muestra que el algoritmo es:
+\begin{center}
+  $\therefore T(n)\in O(log_3n)$
+\end{center}
+
+La comparación del algoritmo recursivo e iterativo tienen la misma complejidad temporal, como se desmuestra anteriormente, siendo ambos
+big $O(log_3n)$, por lo que, para la búsqueda se puede implementar tanto de la forma recursiva o de la forma iterativa ya que tienen a misma eficiencia
+en términos complejidad temporal. 
+
+Sin embargo, es importante mencionar que el análisis de complejidad espacial se omite en los algoritmos que se presentan, ya que solo se desmuestra la complejidad temporal.
 
 \newpage
 \section{Conclusiones}
 
-Texto ejemplo, conclusión general.
+Un algoritmo se puede plantear de una forma recursiva en algunos casos o de forma iterativa, al final los dos algoritmos tienen la misma finalidad que es resolver un problema de una forma completa o parcial, lo importante es conocer cuál algoritmo es eficiente en complejidad temporal para un caso práctico, por lo que, es importante conocer las complejidades de las implementaciones de los algoritmos, ya sean recursivos o iterativos, por lo que, conociendo las complejidades se puede analizar cuál es eficiente para un caso práctico. Algunos algoritmos tienen la misma complejidad en su forma recursiva e iterativa, pero esto no siempre se cumple, ya que existen casos en los cuales el algoritmo recursivo es eficiente en comparación a su forma iterativa en complejidad temporal. Los algoritmos recursivos pueden ser complejos de calcular la complejidad temporal, ya que requieren de métodos de solución para las ecuaciones de recurrencia, entre los métodos están: la sustitución hacía atrás, método maestro, etc.
+
+Por otra parte, es importante la complejidad espacial, ya que los algoritmos recursivos se tienen que tomar la complejidad espacial en cuenta, pero en esta práctica se omitió. 
+
 \medskip
 
 Conclusiones Catonga Tecla Daniel Isaí 1
 \par
-Texto ejemplo.
+En esta práctica aprendí a analizar algoritmos recursivos y a compararlos con su forma iterativa, se conoció que algunos algoritmos recursivos tienen la misma complejidad que los iterativos, es decir que los dos son eficientes, aunque esto depende de la implementación del algoritmo, ya que un algoritmo puede tener la misma finalidad, pero por la implementación no tiene la misma complejidad, por lo que, siempre se tiene que buscar el eficiente en complejidad temporal. Por otra parte, el algoritmo de búsqueda fue interesante, ya que al dividir en tres partes nuestro arreglo ordenado, es menos eficiente que si solo lo vamos dividiendo a la mitad, y esto se demuestra solucionando las ecuaciones de recurrencia y obteniendo lo complejidad.
 
 \medskip
 
@@ -257,14 +582,5 @@ Texto ejemplo.
 \section{Bibliograf\'ia}
 
 \printbibliography[title={ }]
-
-
-
-
-
-
-
-
-
 
 \end{document}
